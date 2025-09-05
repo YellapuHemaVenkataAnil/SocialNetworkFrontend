@@ -11,21 +11,27 @@ const SignIn = () => {
   });
 
   const handleLogin = async () => {
-    try {
-      const response = await axios.post(`${apiURL}/auth/login`, login);
-      
-      if (response.data && response.data.email) {
-        console.log("SuccessFull.....");
-        
-        navigate("/home");
-      } else {
-        alert("Invalid login credentials");
-      }
-    } catch (error) {
-      console.error("Login error:", error.response?.data || error.message);
-      alert("Login failed. Please check your email and password.");
+  try {
+    const response = await axios.post(
+      `${apiURL}/auth/login`,
+      login,
+      { headers: { "Content-Type": "application/json" } }
+    );
+
+    if (response.data && response.data.user) {
+      console.log("Login successful:", response.data.user);
+      // You can also store the token if needed
+      localStorage.setItem("token", response.data.token);
+      navigate("/home");
+    } else {
+      alert("Invalid login credentials");
     }
-  };
+  } catch (error) {
+    console.error("Login error:", error.response?.data || error.message);
+    alert(error.response?.data?.message || "Login failed. Please check your email and password.");
+  }
+};
+
 
   return (
     <div
