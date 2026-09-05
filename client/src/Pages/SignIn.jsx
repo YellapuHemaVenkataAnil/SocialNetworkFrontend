@@ -12,6 +12,7 @@ const SignIn = () => {
 
   const handleLogin = async () => {
   try {
+<<<<<<< HEAD:client/src/Pages/SignIn.jsx
     const response = await axios.post(
       `${apiURL}/auth/login`,
       login,
@@ -32,7 +33,19 @@ const SignIn = () => {
   }
 };
 
+=======
+    const response = await axios.post(`${apiURL}/auth/login`, login);
+>>>>>>> 52bdaea (Fix SignIn validation):src/Pages/SignIn.jsx
 
+    navigate("/home");
+  } catch (error) {
+    console.log("STATUS:", error.response?.status);
+    console.log("ERROR RESPONSE:", error.response?.data);
+    console.log("ERROR:", error.message);
+
+    alert("Login failed");
+  }
+};
   return (
     <div
       className="signin-page flex justify-center items-center"
